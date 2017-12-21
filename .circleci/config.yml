@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: docker build -t awesome-tool ./
+      - run: echo "Docker image has been successfully build"
+      - run: docker run -it --rm awesome-tool test
+      - run: echo "Looks like all tests are passed"
+      - run: docker tag awesome-tool uaquetzalcoatl/demo-docker-test:${CIRCLE_SHA1}
+      - run: docker push uaquetzalcoatl/demo-docker-test:${CIRCLE_SHA1}
+      - run: echo "New docker image 'uaquetzalcoatl/demo-docker-test:${CIRCLE_SHA1}' has been successfully pushed"
