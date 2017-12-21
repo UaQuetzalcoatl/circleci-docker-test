@@ -16,5 +16,9 @@ describe('Util test', () => {
     it('should add values', () => {
       expect(util.add(102, 201)).eq(303);
     });
+
+    it('should fail this test', () => {
+      expect(util.add(1, 1)).eq(3);
+    });
   });
 });
