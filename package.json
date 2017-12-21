@@ -4,6 +4,7 @@
   "description": "test package",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "f() { [ -z \"${1}\" ] && mocha '{,!(node_modules)/**/}*.spec.js' || mocha -b \"./$(dirname \"${1}\")/*.spec.js\"; }; f"
   },
   "repository": {
