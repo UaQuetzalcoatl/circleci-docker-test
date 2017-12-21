@@ -1,0 +1,24 @@
+{
+  "name": "circleci-docker-test",
+  "version": "1.0.0",
+  "description": "test package",
+  "main": "index.js",
+  "scripts": {
+    "test": "f() { [ -z \"${1}\" ] && mocha '{,!(node_modules)/**/}*.spec.js' || mocha -b \"./$(dirname \"${1}\")/*.spec.js\"; }; f"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UaQuetzalcoatl/circleci-docker-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UaQuetzalcoatl/circleci-docker-test/issues"
+  },
+  "homepage": "https://github.com/UaQuetzalcoatl/circleci-docker-test#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.3"
+  }
+}
