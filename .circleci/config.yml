@@ -4,11 +4,23 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker build -t awesome-tool ./
-      - run: echo "Docker image has been successfully build"
-      - run: docker run -it --rm awesome-tool test
-      - run: echo "Looks like all tests are passed"
-      - run: docker tag awesome-tool uaquetzalcoatl/demo-docker-test:$CIRCLE_SHA1
-      - run: docker login --username $DOCKERHUB_USER --password $DOCKERHUB_PASSWORD
-      - run: docker push uaquetzalcoatl/demo-docker-test:$CIRCLE_SHA1
-      - run: echo "New docker image 'uaquetzalcoatl/demo-docker-test:$CIRCLE_SHA1' has been successfully pushed"
+      - run:
+        name: Buiding docker image
+        command: docker build -t awesome-tool ./
+      - run:
+        name: Run unit tests
+        command: docker run -it --rm awesome-tool test
+      - run:
+        name: Push new docker image to the registry
+        command: \
+          # define image tag if it's manual build and there isn't commit hash we use current datetime
+          if [ -n $CIRCLE_SHA1 ]
+          then
+            IMAGE_TAG=$(date '+%Y%m%d%H%M%S');
+          else
+            IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c 1-7);
+          fi
+
+          docker tag awesome-tool uaquetzalcoatl/demo-docker-test:$IMAGE_TAG
+          docker login --username $DOCKERHUB_USER --password $DOCKERHUB_PASSWORD
+          docker push uaquetzalcoatl/demo-docker-test:$IMAGE_TAG
