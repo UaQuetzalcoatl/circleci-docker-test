@@ -14,6 +14,6 @@ jobs:
           name: Push new docker image to the registry
           # define image tag if it's manual build and there isn't commit hash we use current datetime
           command: if [ -z "$CIRCLE_SHA1" ]; then IMAGE_TAG=$(date '+%Y%m%d%H%M%S'); else IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c 1-7); fi;
-            docker tag awesome-tool uaquetzalcoatl/demo-docker-test:$IMAGE_TAG;
-            docker login --username $DOCKERHUB_USER --password $DOCKERHUB_PASSWORD;
-            docker push uaquetzalcoatl/demo-docker-test:$IMAGE_TAG;
+            docker tag awesome-tool quay.io/uaquetzalcoatl/demo-docker-test:$IMAGE_TAG;
+            docker login --username $REGISTRY_USER --password $REGISTRY_PASSWORD quay.io;
+            docker push quay.io/uaquetzalcoatl/demo-docker-test:$IMAGE_TAG;
