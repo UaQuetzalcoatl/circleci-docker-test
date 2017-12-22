@@ -12,8 +12,8 @@ jobs:
         command: docker run -it --rm awesome-tool test
       - run:
         name: Push new docker image to the registry
+        # define image tag if it's manual build and there isn't commit hash we use current datetime
         command: \
-          # define image tag if it's manual build and there isn't commit hash we use current datetime
           if [ -n $CIRCLE_SHA1 ]
           then
             IMAGE_TAG=$(date '+%Y%m%d%H%M%S');
