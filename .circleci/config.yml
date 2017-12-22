@@ -16,9 +16,9 @@ jobs:
           command: \
             if [ -n $CIRCLE_SHA1 ]
             then
-              IMAGE_TAG=$(date '+%Y%m%d%H%M%S');
+              IMAGE_TAG=$(date '+%Y%m%d%H%M%S')
             else
-              IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c 1-7);
+              IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c 1-7)
             fi
 
             docker tag awesome-tool uaquetzalcoatl/demo-docker-test:$IMAGE_TAG
